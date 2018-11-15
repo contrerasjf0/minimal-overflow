@@ -12,9 +12,11 @@ import { MomentModule } from 'ngx-moment';
 import { QuestionDetailComponent } from './questions/question-detail.component';
 import { AnswerFormComponent } from './answer/answer-form.component';
 import { SigninScreenComponent } from './auth/signin-screen.component';
-import { SingupScreenComponent } from './auth/singup-screen.component'
+import { SingupScreenComponent } from './auth/singup-screen.component';
+import { QuestionListComponent } from './questions/question-list.component';
 
 import 'hammerjs';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import 'hammerjs';
     QuestionDetailComponent,
     AnswerFormComponent,
     SigninScreenComponent,
-    SingupScreenComponent
+    SingupScreenComponent,
+    QuestionListComponent
   ],
   imports: [
     BrowserModule,
