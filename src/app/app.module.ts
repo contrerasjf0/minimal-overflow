@@ -12,6 +12,7 @@ import { MomentModule } from 'ngx-moment';
 import { QuestionDetailComponent } from './questions/question-detail.component';
 import { AnswerFormComponent } from './answer/answer-form.component';
 import { SigninScreenComponent } from './auth/signin-screen.component';
+import { SingupScreenComponent } from './auth/singup-screen.component'
 
 import 'hammerjs';
 
@@ -21,7 +22,8 @@ import 'hammerjs';
     AppComponent,
     QuestionDetailComponent,
     AnswerFormComponent,
-    SigninScreenComponent
+    SigninScreenComponent,
+    SingupScreenComponent
   ],
   imports: [
     BrowserModule,
