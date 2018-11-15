@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Answer, User } from './answer.mode';
+import { Question } from '../questions/question.model';
 
 @Component({
     selector: 'app-answer-form',
@@ -16,7 +18,18 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
     `]
 })
 export class AnswerFormComponent{
+    @Input() question: Question;
+
     onSubmit(form: NgForm){
-        console.log(form.value.description);
+        const answer = new Answer(
+            form.value.description,
+            this.question,
+            new Date(),
+            new User('Paula', 'Becerra')
+        );
+
+        this.question.answers.unshift(answer);
+
+        form.reset();
     }
 }
