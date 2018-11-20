@@ -12,9 +12,11 @@ import { MomentModule } from 'ngx-moment';
 import { QuestionDetailComponent } from './questions/question-detail.component';
 import { AnswerFormComponent } from './answer/answer-form.component';
 import { SigninScreenComponent } from './auth/signin-screen.component';
-import { SingupScreenComponent } from './auth/singup-screen.component';
+import { SignupScreenComponent } from './auth/signup-screen.component';
 import { QuestionListComponent } from './questions/question-list.component';
 import { QuestionFormComponent } from './questions/question-form.component';
+
+import { Routing } from'./app.routing';
 
 import 'hammerjs';
 
@@ -24,7 +26,7 @@ import 'hammerjs';
     QuestionDetailComponent,
     AnswerFormComponent,
     SigninScreenComponent,
-    SingupScreenComponent,
+    SignupScreenComponent,
     QuestionListComponent,
     QuestionFormComponent
   ],
@@ -35,7 +37,8 @@ import 'hammerjs';
     MaterialModule,
     MomentModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Routing
   ],
   providers: [],
   bootstrap: [AppComponent]

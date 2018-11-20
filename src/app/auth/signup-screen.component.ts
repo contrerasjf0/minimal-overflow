@@ -4,9 +4,9 @@ import { User } from './user.model';
 
 @Component ({
   selector: 'app-singup-screen',
-  templateUrl: './singup-screen.component.html'
+  templateUrl: './signup-screen.component.html'
 })
-export class SingupScreenComponent implements OnInit {
+export class SignupScreenComponent implements OnInit {
   singupForm: FormGroup;
   ngOnInit() {
     this.singupForm = new FormGroup({
