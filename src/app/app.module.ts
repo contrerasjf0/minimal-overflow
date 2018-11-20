@@ -14,10 +14,9 @@ import { AnswerFormComponent } from './answer/answer-form.component';
 import { SigninScreenComponent } from './auth/signin-screen.component';
 import { SingupScreenComponent } from './auth/singup-screen.component';
 import { QuestionListComponent } from './questions/question-list.component';
+import { QuestionFormComponent } from './questions/question-form.component';
 
 import 'hammerjs';
-
-
 
 @NgModule({
   declarations: [
@@ -26,7 +25,8 @@ import 'hammerjs';
     AnswerFormComponent,
     SigninScreenComponent,
     SingupScreenComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    QuestionFormComponent
   ],
   imports: [
     BrowserModule,
