@@ -3,7 +3,7 @@ import { Question } from './question.model';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
 import urljoin from 'url-join';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs';
 
 @Injectable()
 export class QuestionService {
