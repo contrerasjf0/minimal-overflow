@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatListModule} from '@angular/material/list';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const modules = [
     MatToolbarModule,
@@ -18,7 +19,8 @@ const modules = [
     MatFormFieldModule,
     MatListModule,
     MatGridListModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule
 ];
 
 @NgModule({
