@@ -24,7 +24,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy{
         this.sub = this.route
                     .params.subscribe((params => {
                         this.questionService.getQuestion(params.id)
-                            .then((question: Question) => {
+                            .subscribe((question: Question) => {
                                 this.question = question;
                                 this.loading =false
                             });

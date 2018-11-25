@@ -35,7 +35,7 @@ export class QuestionListComponent implements OnInit {
   ngOnInit() {
     this.questionService
       .getQuestions()
-      .then((questions: Question[]) => {
+      .subscribe((questions: Question[]) => {
         this.questions = questions;
         this.loading = false;
       });
