@@ -27,13 +27,12 @@ export class QuestionService {
     return this.http.get<Question>(url);
   }
 
-  addQuestion(question: Question) {
+  addQuestion(question: Question):Observable<Question> {
     const body = JSON.stringify(question);
     const headers = new  HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post(this.questionsUrl, body, { headers })
+    return this.http.post<Question>(this.questionsUrl, body, { headers })
             .pipe(
-                map((response: Response) => response.json()),
                 catchError((error: Response) => Observable.throw(error.json()))
             );
   }
