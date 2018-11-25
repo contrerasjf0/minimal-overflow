@@ -2,6 +2,13 @@ import express from 'express'
 
 const app = express.Router()
 
+function questionMiddleware(req, res next){
+  const { id } = req.params
+  const q = questions.find(({ _id }) => _id === +id)
+  req.question = q
+  next()
+}
+
 const question = {
   _id: 1,
   title: '¿Cómo reutilizo un componente en Android?',
@@ -23,10 +30,9 @@ const questions = new Array(10).fill(question)
 app.get('/', (req, res) => res.status(200).json(questions))
 
 // /api/questions/:id
-app.get('/:id', (req, res) => {
-  const { id } = req.params
-  const q = questions.find(({ _id }) => _id === +id)
-  res.status(200).json(q)
+app.get('/:id', questionMiddleware, (req, res) => {
+  
+  res.status(200).json(req.question)
 })
 
 // POST /api/questions
