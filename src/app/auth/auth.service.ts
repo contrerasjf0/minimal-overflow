@@ -48,4 +48,10 @@ export class AuthService {
     return localStorage.getItem('token') !== null;
   }
 
+  logout() {
+    localStorage.clear();
+    this.currentUser = null;
+    this.router.navigateByUrl('/');
+  }
+
 }
