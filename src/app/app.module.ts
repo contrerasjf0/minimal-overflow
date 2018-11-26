@@ -17,6 +17,8 @@ import { SignupScreenComponent } from './auth/signup-screen.component';
 import { QuestionListComponent } from './questions/question-list.component';
 import { QuestionFormComponent } from './questions/question-form.component';
 
+import { AuthService } from './auth/auth.service';
+
 import { Routing } from'./app.routing';
 
 import 'hammerjs';
@@ -42,7 +44,7 @@ import 'hammerjs';
     Routing,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

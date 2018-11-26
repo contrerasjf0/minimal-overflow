@@ -4,8 +4,8 @@ import { environment } from '../../environments/environment';
 import { User } from './user.model';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { map, catchError } from'rxjs/operators';
-import { Observable } from 'rxjs';
-
+import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,7 @@ export class AuthService {
   usersUrl: string;
   currentUser?: User;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
 
     this.usersUrl = urljoin(environment.apiUrl, 'auth');
 
@@ -30,21 +30,18 @@ export class AuthService {
 
     return this.http.post(urljoin(this.usersUrl, 'signin'), body, { headers })
                 .pipe(
-                    map((response: any) => {
-                        const json = response.json();
-                        this.login(json);
-                        return json;
-                      }),
-                      catchError((error: Response) => Observable.throw(error.json()))
+                      catchError((error: Response) => throwError(error))
                     );
   }
 
-  login = ({ token, userId, firstName, lastName, email }) => {
-
+  login = (val) => {
+    console.log(val);
+    let { token, userId, firstName, lastName, email } = val;
     this.currentUser = new User(email, null, firstName, lastName, userId);
     
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify({ userId, firstName, lastName, email }));
+    this.router.navigateByUrl('/');
   }
 
   isLoggedIn() {
