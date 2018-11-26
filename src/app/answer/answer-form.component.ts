@@ -4,6 +4,9 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 import { Answer } from './answer.mode';
 import { User } from '../auth/user.model';
 import { Question } from '../questions/question.model';
+import { QuestionService } from '../questions/question.service';
+import SweetScroll from 'sweet-scroll';
+
 
 @Component({
     selector: 'app-answer-form',
@@ -12,20 +15,31 @@ import { Question } from '../questions/question.model';
         form {
             margin-top: 20px;
         }
-    `]
+    `],
+    providers: [QuestionService]
 })
 export class AnswerFormComponent{
     @Input() question: Question;
 
+    sweetScroll: SweetScroll;
+    constructor(private questionService: QuestionService) {
+        this.sweetScroll = new SweetScroll();
+    }
+    
+
     onSubmit(form: NgForm){
         const answer = new Answer(
             form.value.description,
-            this.question,
-            new Date(),
-            new User(null, null,'Paula', 'Becerra')
+            this.question
         );
 
-        this.question.answers.unshift(answer);
+        this.questionService.addAnswer(answer)
+        .subscribe(
+          a => {
+            this.question.answers.unshift(a);
+            this.sweetScroll.to('#title');
+          }
+        );
 
         form.reset();
     }

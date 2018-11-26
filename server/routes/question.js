@@ -2,12 +2,26 @@ import express from 'express'
 
 const app = express.Router()
 
-function questionMiddleware(req, res next){
+const currentUser = {
+  firstName: 'Frank',
+  lastName: 'Esp',
+  email: 'frank@rtsty.com',
+  password: '123456'
+}
+
+function questionMiddleware(req, res, next){
   const { id } = req.params
   const q = questions.find(({ _id }) => _id === +id)
   req.question = q
   next()
 }
+
+function userMiddleware(req, res, next){
+
+  req.user = currentUser
+  next();
+}
+
 
 const question = {
   _id: 1,
@@ -15,13 +29,7 @@ const question = {
   description: 'Miren esta es mi pregunta...',
   createdAt: new Date(),
   icon: 'devicon-android-plain',
-  answers: [],
-  user: {
-    firstName: 'Frank',
-    lastName: 'Esp',
-    email: 'frank@rtsty.com',
-    password: '123456'
-  }
+  answers: []
 }
 
 const questions = new Array(10).fill(question)
@@ -36,20 +44,24 @@ app.get('/:id', questionMiddleware, (req, res) => {
 })
 
 // POST /api/questions
-app.post('/', (req, res) => {
+app.post('/', userMiddleware, (req, res) => {
   const question = req.body
   question._id = +new Date()
-  question.user = {
-    email: 'frank@rtsty.com',
-    password: '123456',
-    firstName: 'Frank',
-    lastName: 'Esp'
-  }
+  question.user = req.user
   question.createdAt = new Date()
   question.answers = []
   questions.push(question)
   res.status(201).json(question)
 })
 
+app.post('/:id/answers', questionMiddleware, userMiddleware,( req, res) =>{
+  const answer = req.body
+  const q = req.question
+
+  answer.createdAt = new Date()
+  answer.user = req.user
+  q.answers.push(answer)
+  res.status(201).json(answer)
+})
 
 export default app
