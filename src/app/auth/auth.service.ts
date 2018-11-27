@@ -23,6 +23,7 @@ export class AuthService {
     }
 
   }
+
   signin(user: User): Observable<any> {
 
     const body = JSON.stringify(user);
@@ -32,6 +33,16 @@ export class AuthService {
                 .pipe(
                       catchError((error: Response) => throwError(error))
                     );
+  }
+
+  signup(user: User): Observable<any> {
+    const body = JSON.stringify(user);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(urljoin(this.usersUrl, 'signup'), body, { headers })
+              .pipe(
+                catchError((error: Response) => throwError(error))
+              );
   }
 
   login = (val) => {
