@@ -4,7 +4,7 @@ import { Answer } from '../answer/answer.mode';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import urljoin from 'url-join';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from'rxjs/operators';
 import 'rxjs';
 
@@ -28,13 +28,20 @@ export class QuestionService {
     return this.http.get<Question>(url);
   }
 
+
+  getToken() {
+    const token = localStorage.getItem('token');
+    return `?token=${token}`;
+  }
+
   addQuestion(question: Question):Observable<Question> {
     const body = JSON.stringify(question);
     const headers = new  HttpHeaders({ 'Content-Type': 'application/json' });
+    const token = this.getToken();
 
-    return this.http.post<Question>(this.questionsUrl, body, { headers })
+    return this.http.post<Question>(this.questionsUrl + token, body, { headers })
             .pipe(
-                catchError((error: Response) => Observable.throw(error.json()))
+                catchError((error: Response) => throwError(error))
             );
   }
 
@@ -48,10 +55,11 @@ export class QuestionService {
     const body = JSON.stringify(a);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = urljoin(this.questionsUrl, answer.question._id.toString(), 'answers');
+    const token = this.getToken();
 
-    return this.http.post<Answer>(url, body, { headers })
+    return this.http.post<Answer>(url + token, body, { headers })
           .pipe( 
-            catchError((error: Response) => Observable.throw(error.json()))
+            catchError((error: Response) => throwError(error))
           );
   }
 
